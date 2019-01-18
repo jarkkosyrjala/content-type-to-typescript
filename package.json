@@ -122,7 +122,7 @@
   "dependencies": {
     "chalk": "^2.3.0",
     "commander": "^2.13.0",
-    "contentful": "^5.0.5",
+    "contentful": "^7.1.0",
     "json-schema-to-typescript": "^5.2.2",
     "lodash": "^4.17.4"
   }
