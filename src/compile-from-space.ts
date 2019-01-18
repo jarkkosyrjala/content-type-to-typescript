@@ -15,7 +15,19 @@ async function fetchContentTypes({
       accessToken,
       space,
     });
-    const { items: contentTypes } = await client.getContentTypes();
+
+    let skip = 0;
+    let contentTypes: any[] = []
+    while (true) {
+      const { items, total } = await client.getContentTypes({skip});
+      contentTypes = contentTypes.concat(items)
+      skip += items.length;
+
+      if (skip >= total) {
+        break;
+      }
+    }
+
     return contentTypes;
   } catch (err) {
     logError(err.response.data.message);
