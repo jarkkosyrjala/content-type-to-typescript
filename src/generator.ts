@@ -5,6 +5,8 @@ import { chain, defaults, get, orderBy } from 'lodash';
 import { buildRef, getByRef } from './built-in-definitions';
 import { convertToJSONSchema } from './parser';
 import { JSONSchema } from './types/json-schema';
+import { ContentfulPhones.Accessory } from '../test';
+//import Accessory = ContentfulPhones.Accessory;
 
 const BANNER_COMMENT = `/**
 * This file was automatically generated.
@@ -12,8 +14,9 @@ const BANNER_COMMENT = `/**
 */`;
 
 export async function compileFromContentTypes(
-  contentTypes: Array<ContentType>,
+  contentTypes: ContentType[],
   options: Partial<Options> = {},
+  namespace?: string,
 ): Promise<string> {
   const settings = defaults(
     {
@@ -26,6 +29,7 @@ export async function compileFromContentTypes(
     contentTypes.map((ct) => convertToJSONSchema(ct)),
   );
 
+  var s:Accessory
   const resultSchema = {
     title: 'EphemeralContentfulSchemaRoot1',
     type: 'object',
@@ -41,9 +45,17 @@ export async function compileFromContentTypes(
 
   const res = await compile(resultSchema as JSONSchema4, EPHEMERAL_ROOT, settings);
 
-  const contentFulTypeImport = 'import { Asset, Entry } from \'contentful\';';
+  if (namespace) {
+    `export declare namespace ${namespace} {\n`;
+  }
 
-  return cleanupEphemeralRoot(contentFulTypeImport + res);
+  const contentFulTypeImport = 'import { Asset, Entry } from \'contentful\';';
+  const content = cleanupEphemeralRoot(res);
+
+  return contentFulTypeImport +
+  namespace ? `export declare namespace ${namespace} {\n` : '' +
+  content +
+  namespace ? '\n}' : '';
 }
 
 const EPHEMERAL_ROOT = 'EphemeralContentfulSchemaRoot1';

@@ -17,7 +17,8 @@ program
     'This is the access token for this space. You can generate the token in the Contentful web app. Learn more at https://www.contentful.com/developers/docs/references/authentication/',
   )
   .option('--space <space>', 'This is the space ID')
-  .option('--output <output>', 'Output filename: e.g. -o ./types.ts');
+  .option('--output <output>', 'Output filename: e.g. -o ./types.ts')
+  .option('--namespace <namespace>', 'Namespace used for interfaces e.g. "contentful"');
 
 program.on('--help', () => {
   console.log('  Examples:');
@@ -43,6 +44,7 @@ compileFromSpace({
   accessToken: program.accessToken,
   space: program.space,
   output: program.output,
+  namespace: program.namespace,
 })
   .then(() => process.exit())
   .catch(() => process.exit(1));
