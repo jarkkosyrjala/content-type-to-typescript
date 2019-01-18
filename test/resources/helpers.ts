@@ -6,6 +6,9 @@ export const createContentTypes = (length = 20): ContentType[] =>
     return {
       name: `ContentType${index}a`,
       description: `ContentType${index}a`,
+      sys: {
+        id: `contentType${index}a`,
+      },
       fields: [
         {
           id: 'singleLine',

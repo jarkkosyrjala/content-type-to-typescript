@@ -3,6 +3,9 @@
     "displayField": "title",
     "name": "Image",
     "description": null,
+    "sys": {
+      "id": "image"
+    },
     "fields": [
       {
         "id": "title",
@@ -47,6 +50,9 @@
     "displayField": "name",
     "name": "Author",
     "description": null,
+    "sys": {
+      "id": "author"
+    },
     "fields": [
       {
         "id": "name",
@@ -111,6 +117,9 @@
     "displayField": "title",
     "name": "Photo Gallery",
     "description": null,
+    "sys": {
+      "id": "photoGallery"
+    },
     "fields": [
       {
         "id": "title",

@@ -3,6 +3,9 @@
     "displayField": "title",
     "name": "Post",
     "description": "",
+    "sys": {
+      "id": "post"
+    },
     "fields": [
       {
         "id": "title",
@@ -19,6 +22,9 @@
     "displayField": "title",
     "name": "Post 2",
     "description": "",
+    "sys": {
+      "id": "post2"
+    },
     "fields": [
       {
         "id": "title",

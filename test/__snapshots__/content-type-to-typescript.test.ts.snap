@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`100 content types 1`] = `
-"/**
+"import { Asset, Entry } from 'contentful';/**
  * This file was automatically generated.
  * DO NOT MODIFY IT BY HAND.
  */
@@ -610,7 +610,7 @@ export interface ContentType9A {
 `;
 
 exports[`All fields 1`] = `
-"/**
+"import { Asset, Entry } from 'contentful';/**
  * This file was automatically generated.
  * DO NOT MODIFY IT BY HAND.
  */
@@ -633,48 +633,38 @@ export interface AllTheFieldsAndWidgets {
   bool?: boolean;
   date?: string;
   location?: Location;
-  entry?: EntryLink;
-  asset?: AssetLink;
+  entry?: Entry<any>;
+  asset?: Asset;
   object?: {
     [k: string]: any;
   };
-  entryCards?: EntryLink[];
-  entries?: EntryLink[];
-  assetGallery?: AssetLink[];
-  assets?: AssetLink[];
+  entryCards?: Entry<any>[];
+  entries?: Entry<any>[];
+  assetGallery?: Asset[];
+  assets?: Asset[];
   symbols?: string[];
 }
 export interface Location {
   lon: number;
   lat: number;
 }
-export interface EntryLink {
-  type: string;
-  linkType: string;
-  id: string;
-}
-export interface AssetLink {
-  type: string;
-  linkType: string;
-  id: string;
-}
 "
 `;
 
 exports[`Content Type with omitted field 1`] = `
-"/**
+"import { Asset, Entry } from 'contentful';/**
  * This file was automatically generated.
  * DO NOT MODIFY IT BY HAND.
  */
 
-export interface ModelWithOmittedField {
+export interface ModelWithOmitteField {
   multipleLine?: string;
 }
 "
 `;
 
 exports[`Multiple types 1`] = `
-"/**
+"import { Asset, Entry } from 'contentful';/**
  * This file was automatically generated.
  * DO NOT MODIFY IT BY HAND.
  */
@@ -682,33 +672,23 @@ exports[`Multiple types 1`] = `
 export interface Author {
   name?: string;
   twitterHandle?: string;
-  profilePhoto?: AssetLink;
+  profilePhoto?: Asset;
   biography?: string;
-  createdEntries?: EntryLink[];
-}
-export interface AssetLink {
-  type: string;
-  linkType: string;
-  id: string;
-}
-export interface EntryLink {
-  type: string;
-  linkType: string;
-  id: string;
+  createdEntries?: Entry<XYw5JsIecuGE68MmGMg20>[];
 }
 export interface Image {
   title: string;
-  photo?: AssetLink;
+  photo?: Asset;
   imageCaption?: string;
   imageCredits?: string;
 }
 export interface PhotoGallery {
   title: string;
   slug?: string;
-  author: EntryLink;
-  coverImage?: AssetLink;
+  author: Entry<any>;
+  coverImage?: Asset;
   description?: string;
-  images?: EntryLink[];
+  images?: Entry<XYw5JsIecuGE68MmGMg20>[];
   tags?: string[];
   date?: string;
   location?: Location;
@@ -721,7 +701,7 @@ export interface Location {
 `;
 
 exports[`Multiple types with non unique field id 1`] = `
-"/**
+"import { Asset, Entry } from 'contentful';/**
  * This file was automatically generated.
  * DO NOT MODIFY IT BY HAND.
  */
@@ -736,7 +716,7 @@ export interface Post2 {
 `;
 
 exports[`Parse descirption 1`] = `
-"/**
+"import { Asset, Entry } from 'contentful';/**
  * This file was automatically generated.
  * DO NOT MODIFY IT BY HAND.
  */

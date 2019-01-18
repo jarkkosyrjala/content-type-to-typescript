@@ -2,6 +2,9 @@
   "name": "Model With Omitted Field",
   "description": null,
   "displayField": "singleLine",
+  "sys": {
+    "id": "modelWithOmitteField"
+  },
   "fields": [
     {
       "id": "singleLine",
