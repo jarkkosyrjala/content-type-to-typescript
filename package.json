@@ -124,6 +124,6 @@
     "commander": "^2.13.0",
     "contentful": "^7.1.0",
     "json-schema-to-typescript": "^6.1.0",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.11"
   }
 }
