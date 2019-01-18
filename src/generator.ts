@@ -1,7 +1,7 @@
-import { ContentType, Field } from 'contentful/index';
+import { ContentType } from 'contentful/index';
 import { JSONSchema4 } from 'json-schema';
 import { compile, Options } from 'json-schema-to-typescript';
-import { chain, defaults, fromPairs, get, orderBy } from 'lodash';
+import { chain, defaults, get, orderBy } from 'lodash';
 import { buildRef, getByRef } from './built-in-definitions';
 import { convertToJSONSchema } from './parser';
 import { JSONSchema } from './types/json-schema';
@@ -12,7 +12,7 @@ const BANNER_COMMENT = `/**
 */`;
 
 export async function compileFromContentTypes(
-  contentTypes: Array<Partial<ContentType>>,
+  contentTypes: Array<ContentType>,
   options: Partial<Options> = {},
 ): Promise<string> {
   const settings = defaults(
@@ -41,7 +41,9 @@ export async function compileFromContentTypes(
 
   const res = await compile(resultSchema as JSONSchema4, EPHEMERAL_ROOT, settings);
 
-  return cleanupEphemeralRoot(res);
+  const contentFulTypeImport = 'import { Asset, Entry } from \'contentful\';';
+
+  return cleanupEphemeralRoot(contentFulTypeImport + res);
 }
 
 const EPHEMERAL_ROOT = 'EphemeralContentfulSchemaRoot1';
