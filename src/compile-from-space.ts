@@ -36,9 +36,9 @@ async function fetchContentTypes({
   }
 }
 
-async function compile(contentTypes: ContentType[]): Promise<string> {
+async function compile(contentTypes: ContentType[], prefix?: string): Promise<string> {
   try {
-    const ts = await compileFromContentTypes(contentTypes);
+    const ts = await compileFromContentTypes(contentTypes, undefined, prefix);
     return ts;
   } catch (err) {
     logError(err.message);
@@ -64,14 +64,16 @@ export default async function({
   accessToken,
   space,
   output,
+  prefix,
 }: {
   accessToken: string;
   space: string;
   output: string;
+  prefix?: string
 }) {
   const contentTypes = await fetchContentTypes({ accessToken, space });
 
-  const ts = await compile(contentTypes);
+  const ts = await compile(contentTypes, prefix);
 
   await writeFile(output, ts);
 }
