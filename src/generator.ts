@@ -12,8 +12,9 @@ const BANNER_COMMENT = `/**
 */`;
 
 export async function compileFromContentTypes(
-  contentTypes: Array<ContentType>,
+  contentTypes: ContentType[],
   options: Partial<Options> = {},
+  prefix: string = '',
 ): Promise<string> {
   const settings = defaults(
     {
@@ -23,7 +24,7 @@ export async function compileFromContentTypes(
   );
 
   const allDefinitions = includeRequiredDefinitions(
-    contentTypes.map((ct) => convertToJSONSchema(ct)),
+    contentTypes.map((ct) => convertToJSONSchema(ct, prefix)),
   );
 
   const resultSchema = {

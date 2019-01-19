@@ -3,8 +3,8 @@ import { buildRef, Location } from './built-in-definitions';
 import { ContentfulField, ContentType } from './types/contentful';
 import { JSONSchema } from './types/json-schema';
 
-const toInterfaceName = (s: string): string => {
-  return upperFirst(
+export const toInterfaceName = (s: string, prefix: string): string => {
+  return prefix + upperFirst(
     // remove accents, umlauts, ... by their basic latin letters
     deburr(s)
     // replace chars which are not valid for typescript identifiers with whitespace
@@ -23,7 +23,7 @@ const toInterfaceName = (s: string): string => {
       .replace(/\s/g, ''));
 }
 
-function fieldToJsonSchema(fieldInfo: ContentfulField): any {
+function fieldToJsonSchema(fieldInfo: ContentfulField, prefix: string): any {
   let result: any;
   switch (fieldInfo.type) {
     case 'Symbol':
@@ -59,7 +59,7 @@ function fieldToJsonSchema(fieldInfo: ContentfulField): any {
         throw new Error('Unexpected Content Type structure.');
       }
       result = {
-        items: fieldToJsonSchema(fieldInfo.items),
+        items: fieldToJsonSchema(fieldInfo.items, prefix),
         type: 'array',
       };
       break;
@@ -78,7 +78,7 @@ function fieldToJsonSchema(fieldInfo: ContentfulField): any {
           });
           if ( validation && validation.linkContentType && validation.linkContentType.length > 0 ) {
             linkType = validation.linkContentType.map((s: string) => {
-              return toInterfaceName(s);
+              return toInterfaceName(s, prefix);
             }).join(' | ');
           }
         }
@@ -97,10 +97,10 @@ function fieldToJsonSchema(fieldInfo: ContentfulField): any {
   return result;
 }
 
-function transformFields(contentTypeInfo: Partial<ContentType>): JSONSchema {
+function transformFields(contentTypeInfo: Partial<ContentType>, prefix: string): JSONSchema {
   const properties = chain(contentTypeInfo.fields)
     .filter((fieldInfo) => !fieldInfo.omitted)
-    .map((fieldInfo) => [fieldInfo.id, fieldToJsonSchema(fieldInfo)])
+    .map((fieldInfo) => [fieldInfo.id, fieldToJsonSchema(fieldInfo, prefix)])
     .fromPairs()
     .value();
 
@@ -116,11 +116,11 @@ function transformFields(contentTypeInfo: Partial<ContentType>): JSONSchema {
   };
 }
 
-export function convertToJSONSchema(contentTypeInfo: ContentType): JSONSchema {
+export function convertToJSONSchema(contentTypeInfo: ContentType, prefix: string): JSONSchema {
   const resultSchema: JSONSchema = {
-    title: contentTypeInfo.sys.id,
+    title: toInterfaceName(contentTypeInfo.sys.id, prefix),
     description: contentTypeInfo.description,
-    ...transformFields(contentTypeInfo),
+    ...transformFields(contentTypeInfo, prefix),
   };
 
   return resultSchema;
