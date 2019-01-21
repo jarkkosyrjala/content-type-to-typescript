@@ -1,5 +1,5 @@
 import { ContentType, createClient } from 'contentful';
-import fs from 'fs';
+import * as fs from 'fs';
 import { compileFromContentTypes } from './content-type-to-typescript';
 import { logError, logSuccess } from './log';
 
